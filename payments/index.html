@@ -5,6 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Демо: Переводы с ошибками</title>
     <link rel="stylesheet" href="styles.css">
+		<script>
+				(function(r){
+					window.r46=window.r46||function(){(window.r46.q=window.r46.q||[]).push(arguments)};
+					var c="https://cdn.rees46.ru",v="/v3.js",s={link:[{href:c,rel:"dns-prefetch"},{href:c,rel:"preconnect"},{href:c+v,rel:"preload",as:"script"}],script:[{src:c+v,async:""}]};
+					Object.keys(s).forEach(function(c){s[c].forEach(function(d){var e=document.createElement(c),a;for(a in d)e.setAttribute(a,d[a]);document.head.appendChild(e)})});
+				})();
+				// Иницифлизация
+				r46('init', '0f34e10ddff84d4acc3a6add28c74d');
+				// Передача контакнтых данных
+				r46('profile', 'set', {
+					"email": "kechinoff@gmail.com",
+					"phone": "+79500099233"
+				});
+				// Подписка на веб пуши с проверкой
+				r46('subscription', 'web_push_supported', function(e) {
+					if( e ) {
+						r46('subscription', 'web_push_subscribed', function(e) {
+							const getCookie = name => Object.assign({}, ...document.cookie.split(';').filter(s => s).map(cookie => cookie.split('=')).map(([key, value]) => ({ [key.trim()]: (value+'').trim() })))[name];
+							if( !e && localStorage.getItem('web_push_subscribe') !== getCookie('rees46_session_code') ) {
+								r46('subscription', 'web_push_subscribe');
+								localStorage.setItem('web_push_subscribe', getCookie('rees46_session_code'));
+							}
+						});
+					}
+				});
+		</script>
 </head>
 <body>
     <div class="container">
