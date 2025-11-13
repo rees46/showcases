@@ -1,0 +1,1 @@
+'use strict';importScripts('https://app.rees46.ru/assets/webpush/sw.js');
