@@ -57,6 +57,15 @@ async function simulateTransfer(recipient, amount, errorsEnabled) {
             'X-Error-Type': 'TRANSFER_ERROR',
             'X-Request-ID': errorResponse._requestId
         });
+        
+        // Отправка события
+        r46('track', error.code.toLowerCase())
+        
+        // Показ попапа
+        if (['err_006', 'err_007'].includes(error.code.toLowerCase())) {
+            const popupId = error.code.toLowerCase() === 'err_006' ? 1602 : 1603;
+            r46('popup', popupId)
+        }
 
         return errorResponse;
     } else {
@@ -71,6 +80,10 @@ async function simulateTransfer(recipient, amount, errorsEnabled) {
         };
 
         console.log('Успешный перевод:', successResponse);
+        
+        // Отправка события
+        r46('track', 'success')
+        
         return successResponse;
     }
 }
