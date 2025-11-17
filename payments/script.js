@@ -57,6 +57,15 @@ async function simulateTransfer(recipient, amount, errorsEnabled) {
             'X-Error-Type': 'TRANSFER_ERROR',
             'X-Request-ID': errorResponse._requestId
         });
+
+        r46('track', 'payment_error', {
+          code: error.code,
+          description: error.description,
+          recipient: recipient,
+          amount: amount,
+          timestamp: errorResponse._timestamp,
+          requestId: errorResponse._requestId
+        });
         
         // Отправка события
         if(error.code.toLowerCase() === 'err_001') {
