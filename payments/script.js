@@ -59,8 +59,12 @@ async function simulateTransfer(recipient, amount, errorsEnabled) {
         });
         
         // Отправка события
-        r46('track', error.code.toLowerCase())
-        
+        if(error.code.toLowerCase() === 'err_001') {
+          r46('track', error.code.toLowerCase(), { amount: amount })
+        } else {
+          r46('track', error.code.toLowerCase())
+        }
+
         // Показ попапа
         if (['err_006', 'err_007'].includes(error.code.toLowerCase())) {
             const popupId = error.code.toLowerCase() === 'err_006' ? 1602 : 1603;
