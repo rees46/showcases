@@ -60,7 +60,7 @@ async function simulateTransfer(recipient, amount, errorsEnabled) {
         
         // Отправка события
         if(error.code.toLowerCase() === 'err_001') {
-          r46('track', error.code.toLowerCase(), { amount: amount })
+          r46('track', error.code.toLowerCase(), { payload: { amount: amount } })
         } else {
           r46('track', error.code.toLowerCase())
         }
